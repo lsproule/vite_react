@@ -30,4 +30,5 @@ Gem::Specification.new do |spec|
   spec.add_dependency "vite_rails"
   spec.add_dependency "turbo-mount"
   spec.add_dependency "tailwindcss-rails"
+  spec.add_dependency "tailwindcss-ruby"
 end
