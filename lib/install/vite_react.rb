@@ -1,5 +1,11 @@
 
-say "=== Post-bundle setup starting... ===", :green
+say "=== Vite-react setup starting... ===", :green
+
+gem "devise", "~> 4.9"
+gem "vite_rails", "~> 3.0"
+gem "turbo-mount", "~> 0.4.1"
+gem "tailwindcss-rails", "~> 3.0"
+
 
 generate "devise:install"
 generate "devise", "User"
