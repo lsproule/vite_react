@@ -22,7 +22,7 @@ module ViteReact
     end
     generators do |app|
       Rails::Generators.configure! app.config.generators
-      Rails::Generators::ScaffoldControllerGenerator.include ViteReact::ScaffoldContollerGenerator
+      Rails::Generators::ScaffoldControllerGenerator.include ViteReact::ScaffoldControllerGenerator
     end
   end
 end
