@@ -138,8 +138,8 @@ insert_into_file "app/views/layouts/application.html.erb",
 #run "npx shadcn@latest init"
 copy_file "#{__dir__}/components.json", "components.json"
 copy_file "#{__dir__}/utils.ts", "app/javascript/lib/utils.ts"
-remove_file "tailwind.config.json"
-copy_file "#{__dir__}/tailwind.config.json", "tailwind.config.json"
+remove_file "tailwind.config.js"
+copy_file "#{__dir__}/tailwind.config.js", "tailwind.config.js"
 
 # --------------------------------------------------------------------------
 # 2.8  setup eslint

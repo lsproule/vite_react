@@ -25,9 +25,9 @@ export function App() {
         </a>
       </div>
       <h1 className="text-4xl font-bold">
-        <span className="text-[#CC0000]">Rails </span>#{' '}
+        <span className="text-[#CC0000]">Rails </span>
         + <span className="text-[#61dafb]">React </span>
-        + <span className="text-[#646cff]">Vite</span>#{' '}
+        + <span className="text-[#646cff]">Vite</span>
       </h1>
       <div className="card flex flex-col items-center">
         <button className="mb-4 font-semibold border border-transparent hover:border-[#646cff] cursor-pointer  bg-[#1a1a1a] p-1 rounded-lg p-x-8" onClick={() => setCount((count) => count + 1)}>

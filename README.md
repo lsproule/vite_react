@@ -1,4 +1,5 @@
 # ViteReact
+
 Short description and motivation.
 
 ## Usage
@@ -13,12 +14,11 @@ gem "vite_react"
 
 And then execute:
 ```bash
-$ bundle
+bundle install
 ```
 
-Or install it yourself as:
 ```bash
-$ gem install vite_react
+./bin/rails vite_react:install
 ```
 
 ## Contributing
