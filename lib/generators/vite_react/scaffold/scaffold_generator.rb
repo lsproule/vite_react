@@ -1,15 +1,23 @@
-require "rails/generators/erb/scaffold/scaffold_generator"
 require "rails/generators/resource_helpers"
+require "rails/generators/rails/scaffold/scaffold_generator"
 
 module ViteReact
   module Generators
-    class ScaffoldGenerator < Erb::Generators::ScaffoldGenerator
+    class ScaffoldGenerator < Rails::Generators::ScaffoldControllerGenerator
+      require "rails/generators/erb/scaffold/scaffold_generator"
+      require "rails/generators/erb"
+
       include Rails::Generators::ResourceHelpers
 
       source_root File.expand_path("templates", __dir__)
       source_paths << "lib/templates/erb/scaffold"
 
       argument :attributes, type: :array, default: [], banner: "field:type field:type"
+
+      remove_hook_for :template_engine
+      hook_for :controller
+
+
 
       def create_root_folder
         empty_directory File.join("app/views", controller_file_path)
@@ -77,6 +85,22 @@ module ViteReact
         end
         def available_views
           %w[index edit show new _form]
+        end
+
+        def formats
+          [ format ]
+        end
+
+        def format
+          :html
+        end
+
+        def handler
+          :erb
+        end
+
+        def filename_with_extensions(name, file_format = format)
+          [ name, file_format, handler ].compact.join(".")
         end
     end
   end
