@@ -9,10 +9,5 @@ module ViteReact
     rake_tasks do
       load "tasks/install.rake"
     end
-
-
-    config.app_generators do |g| 
-      g.scaffold_controller "vite_react"
-    end
   end
 end

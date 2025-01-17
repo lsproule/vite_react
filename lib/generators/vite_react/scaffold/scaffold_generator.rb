@@ -1,17 +1,18 @@
 require "rails/generators/resource_helpers"
+#require "rails/generators/scaffold/scaffold_generator"
 
 # lib/generators/rails/typescript/typescript_generator.rb
 
 module Vite_React
   module Generators
-    class ScaffoldControllerGenerator < Rails::Generators::NamedBase
+    class ScaffoldGenerator < Rails::Generators::ScaffoldGenerator
       include Rails::Generators::ResourceHelpers
 
       source_root File.expand_path("templates", __dir__)
 
-
+      puts "am I being ran"
       argument :attributes, type: :array, default: [], banner: "field:type field:type"
-      hook_for :scaffold_controller, type: :boolean, default: true
+      hook_for :scaffold, type: :boolean, default: true
 
       def create_or_update_types
         types_file_path = Rails.root.join("app/javascript/types.d.ts")
@@ -31,7 +32,6 @@ module Vite_React
 
       def generate_interface_code
         attributes_lines = attributes.flat_map do |attr|
-          puts attr.inspect
           if attr.type == :references
             build_reference_lines(attr)
           else
@@ -71,3 +71,4 @@ module Vite_React
     end
   end
 end
+
