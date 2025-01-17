@@ -1,4 +1,4 @@
-<div className="container mx-auto mt-28 px-5 flex">
+<div class="container mx-auto mt-28 px-5 flex">
   <%% content_for :title, "<%= human_name.pluralize %>" %>
 
   <div class="w-full">
@@ -13,12 +13,16 @@
 
     <div id="<%= plural_table_name %>" class="min-w-full">
       <%% if @<%= plural_table_name %>.any? %>
-        <%% @<%= plural_table_name %>.each do |<%= singular_table_name %>| %>
-          <%%= render <%= singular_table_name %> %>
-          <p>
-            <%%= link_to "Show this <%= human_name.downcase %>", <%= model_resource_name(singular_table_name) %>, class: "ml-2 rounded-md px-3.5 py-2.5 bg-gray-100 hover:bg-gray-50 inline-block font-medium" %>
-          </p>
-        <%% end %>
+        <div class="w-full grid grid-cols-3 gap-3">
+          <%% @<%= plural_table_name %>.each do |<%= singular_table_name %>| %>
+            <div class="border border-black w-auto mt-3 p-4 rounded-lg">
+              <%%= render <%= singular_table_name %> %>
+              <p>
+                <%%= link_to "Show this <%= human_name.downcase %>", <%= model_resource_name(singular_table_name) %>, class: "ml-2 rounded-md px-3.5 py-2.5 bg-gray-100 hover:bg-gray-50 inline-block font-medium" %>
+              </p>
+            </div>
+          <%% end %>
+        </div>
       <%% else %>
         <p class="text-center my-10">No <%= human_name.downcase.pluralize %> found.</p>
       <%% end %>

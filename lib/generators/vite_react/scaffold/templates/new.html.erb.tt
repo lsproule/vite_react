@@ -1,4 +1,4 @@
-<div className="container mx-auto mt-28 px-5 flex">
+<div class="container mx-auto mt-28 px-5 flex">
   <%% content_for :title, "New <%= human_name.downcase %>" %>
 
   <div class="md:w-2/3 w-full">
