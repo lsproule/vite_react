@@ -25,6 +25,8 @@ module Vite_React
         end
       end
 
+
+
       private
 
       def generate_interface_code
