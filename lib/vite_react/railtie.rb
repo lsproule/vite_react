@@ -10,7 +10,6 @@ module ViteReact
       load "tasks/install.rake"
     end
 
-    binding.irb
 
     config.app_generators do |g| 
       g.scaffold_controller :vite_react
