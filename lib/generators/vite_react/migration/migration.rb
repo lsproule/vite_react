@@ -6,7 +6,7 @@ require "rails/generators/resource_helpers"
 
 module ViteReact
   module Generators
-    class MigrationGenerator < MigrationGenerator
+    class TypscriptMigrationGenerator < MigrationGenerator
       source_root File.expand_path("templates", __dir__)
 
       argument :migration_name, type: :string
