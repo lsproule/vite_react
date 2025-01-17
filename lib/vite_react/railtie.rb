@@ -10,6 +10,8 @@ module ViteReact
       load "tasks/install.rake"
     end
 
+    puts Rails::Generators.lookup(["vite_react:scaffold_controller"])
+
     config.app_generators do |g| 
       g.scaffold_controller :vite_react
     end
