@@ -12,7 +12,7 @@ module ViteReact
 
 
     config.app_generators do |g| 
-      g.scaffold_controller :vite_react
+      g.scaffold_controller "vite_react"
     end
   end
 end
