@@ -1,6 +1,6 @@
 # lib/generators/rails/tmodel_validation/model_validation_generator.rb
 
-module ViteReact
+module Vite_React
   module Generators
     class ModelValidationGenerator < Rails::Generators::NamedBase
       source_root File.expand_path("templates", __dir__)

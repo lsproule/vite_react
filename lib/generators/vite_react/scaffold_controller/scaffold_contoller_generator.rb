@@ -1,11 +1,10 @@
-require "rails/generators/scaffold_contoller/scaffold_controller_generator"
 require "rails/generators/resource_helpers"
 
 # lib/generators/rails/typescript/typescript_generator.rb
 
-module ViteReact
+module Vite_React
   module Generators
-    class ScaffoldControllerGenerator < Rails::Generators::ScaffoldControllerGenerator 
+    class ScaffoldControllerGenerator < Rails::Generators::NamedBase
       include Rails::Generators::ResourceHelpers
 
       source_root File.expand_path("templates", __dir__)
