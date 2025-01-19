@@ -6,7 +6,7 @@ module Vite_React
       source_root File.expand_path("templates", __dir__)
 
       def update_types_for_validations
-        require File.join(Rails.root, "app/models/\#{file_path}.rb")
+        require File.join(Rails.root, "app/models/#{file_path}.rb")
 
         model_class = file_name.camelize.constantize
 
@@ -23,7 +23,7 @@ module Vite_React
         presence_required = presence_attributes.to_set
         required_belongs_tos.each do |assoc_name|
           presence_required << assoc_name        # e.g. user
-          presence_required << "\#{assoc_name}_id" # e.g. user_id
+          presence_required << "#{assoc_name}_id" # e.g. user_id
         end
 
         types_file_path = Rails.root.join("app/javascript/types.d.ts")
@@ -36,7 +36,7 @@ module Vite_React
         brace_depth = 0
 
 
-        start_of_interface_regex = /^\s*(?:export\s+)?interface\s+\#{Regexp.escape(model_class.name)}\s*(\{|extends|$)/
+        start_of_interface_regex = /^\s*(?:export\s+)?interface\s+#{Regexp.escape(model_class.name)}\s*(\{|extends|$)/
 
         lines.map!.with_index do |line, idx|
           if !in_target_interface && line =~ start_of_interface_regex
@@ -59,10 +59,10 @@ module Vite_React
               question_mark  = $3 # could be "" or "?"
 
               if presence_required.include?(attribute_name)
-                line = line.sub("\#{attribute_name}?:", "\#{attribute_name}:")
+                line = line.sub("#{attribute_name}?:", "#{attribute_name}:")
               else
                 unless question_mark == "?"
-                  line = line.sub("\#{attribute_name}:", "\#{attribute_name}?:")
+                  line = line.sub("#{attribute_name}:", "#{attribute_name}?:")
                 end
               end
             end
