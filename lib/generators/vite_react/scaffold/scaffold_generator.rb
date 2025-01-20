@@ -15,7 +15,7 @@ module ViteReact
       argument :attributes, type: :array, default: [], banner: "field:type field:type"
 
       remove_hook_for :template_engine
-      hook_for :controller
+      # hook_for :controller
 
 
 
@@ -105,4 +105,3 @@ module ViteReact
     end
   end
 end
-

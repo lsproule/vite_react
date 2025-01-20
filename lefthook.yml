@@ -1,0 +1,6 @@
+pre-commit:
+  parallel: true
+  commands:
+    rubocop-linter:
+      glob: "*{.rb,.erb,Gemfile}" # glob filter
+      run: rubocop -F -a {staged_files} && git add {staged_files}
