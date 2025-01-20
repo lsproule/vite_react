@@ -143,7 +143,7 @@ copy_file "#{__dir__}/tailwind.config.js", "tailwind.config.js"
 
 # --------------------------------------------------------------------------
 # 2.8  setup eslint
-copy_file "#{__dir__}/eslint.config.js", "eslint.config.js"
+# copy_file "#{__dir__}/eslint.config.js", "eslint.config.js"
 
 # --------------------------------------------------------------------------
 # 2.9: Done!
