@@ -11,11 +11,6 @@ module ViteReact
        generate.resource_controller :controller # which generator generates a controller when using bin/rails generate resource
        generate.resource_route true # generate a resource route definition
        generate.scaffold_controller :vite_react
-       generate.stylesheets true # generate stylesheets
-       generate.stylesheet_engine :css # configures the stylesheet engine (for e.g. sass) to be used when generating assets. Defaults to :css.
-       generate.scaffold_stylesheet true # creates scaffold.css when generating a scaffolded resource. Defaults to true.
-       generate.template_engine nil #to skip views
      end
   end
 end
-
