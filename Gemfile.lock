@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    vite_react (0.1.0)
+    vite_react (0.1.5)
       devise
       rails (>= 8.0.1)
       tailwindcss-rails

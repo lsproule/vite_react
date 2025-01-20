@@ -135,7 +135,7 @@ insert_into_file "app/views/layouts/application.html.erb",
 # --------------------------------------------------------------------------
 # 2.7: shadcn initialization
 # --------------------------------------------------------------------------
-#run "npx shadcn@latest init"
+# run "npx shadcn@latest init"
 copy_file "#{__dir__}/components.json", "components.json"
 copy_file "#{__dir__}/utils.ts", "app/javascript/lib/utils.ts"
 remove_file "tailwind.config.js"

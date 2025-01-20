@@ -1,7 +1,7 @@
 require "net/http"
 
 module V0
-  class ComponentGenerator < Rails::Generators::NamedBase 
+  class ComponentGenerator < Rails::Generators::NamedBase
     argument :description, type: :string, default: ""
     @api_url = "https://api.v0.dev"
     @token = ENV["V0_API_TOKEN"]
@@ -9,12 +9,12 @@ module V0
 
     def fetch_from_v0
       url = URI(@api_url + "/chat")
-      
-      http = Net::http.new(url.hot, url.port)
+
+      http = Net.http.new(url.hot, url.port)
       http.use_ssl = true
 
-      request = Net::HTTP::Post.new(url) 
-      request["Accept"] = "application/json" 
+      request = Net::HTTP::Post.new(url)
+      request["Accept"] = "application/json"
       request["Content-Type"] = "application/json"
       request["Authorization"] = "Bearer #{@token}"
 

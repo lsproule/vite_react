@@ -9,8 +9,8 @@ Gem::Specification.new do |spec|
   spec.summary     = "Vite react adds vite and react to your project"
   spec.description = <<~DESCRIPTION
     Vite react adds a few generators and vite and react
-    to your rails project. It also gets it set up to be able 
-    to use shadcn. 
+    to your rails project. It also gets it set up to be able#{' '}
+    to use shadcn.#{' '}
   DESCRIPTION
   spec.license     = "MIT"
 
