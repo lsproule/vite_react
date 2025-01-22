@@ -4,20 +4,14 @@ require "rails/generators/rails/scaffold/scaffold_generator"
 module ViteReact
   module Generators
     class ScaffoldGenerator < Rails::Generators::ScaffoldControllerGenerator
-      require "rails/generators/erb/scaffold/scaffold_generator"
-      require "rails/generators/erb"
-
       include Rails::Generators::ResourceHelpers
 
       source_root File.expand_path("templates", __dir__)
-      source_paths << "lib/templates/erb/scaffold"
 
       argument :attributes, type: :array, default: [], banner: "field:type field:type"
 
       remove_hook_for :template_engine
       # hook_for :controller
-
-
 
       def create_root_folder
         empty_directory File.join("app/views", controller_file_path)

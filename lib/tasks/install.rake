@@ -1,8 +1,3 @@
-# desc "Explaining what the task does"
-# task :vite_react do
-#   # Task goes here
-# end
-#
 namespace :vite_react do
   desc "Install the vite react setup"
   task :install do

@@ -33,7 +33,7 @@ run <<~CMD
     npm install -D \
       @vitejs/plugin-react eslint globals eslint-plugin-react-refresh typescript-eslint @eslint/js \
       @types/react @types/react-dom vite-plugin-stimulus-hmr vite-plugin-full-reload \
-      tailwind autoprefixer tailwindcss-animate \
+      tailwind autoprefixer tailwindcss-animate @types/node \
       @tailwindcss/typography @tailwindcss/container-queries @tailwindcss/forms
 CMD
 
@@ -43,8 +43,8 @@ run "npx tailwindcss init -p"
 # --------------------------------------------------------------------------
 # 2.3.2: Overwrite vite.config.js with your React + Ruby config
 # --------------------------------------------------------------------------
-remove_file "vite.config.js"
-copy_file "#{__dir__}/vite.config.js", "vite.config.js"
+remove_file "vite.config.ts"
+copy_file "#{__dir__}/vite.config.ts", "vite.config.ts"
 
 # --------------------------------------------------------------------------
 # 2.3.3: Add TypeScript config files
