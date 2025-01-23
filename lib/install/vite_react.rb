@@ -1,6 +1,6 @@
 say "=== Vite-react setup starting... ===", :green
 
-unless File.exists? "starting"
+unless File.exist? "starting"
   create_file "starting"
 else
   remove_file "starting"
