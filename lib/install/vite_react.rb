@@ -9,6 +9,7 @@ end
 
 gem "vite_rails", "~> 3.0"
 gem "turbo-mount", "~> 0.4.1"
+gem "tailwindcss-ruby", "~> 4.0.0.beta.9"
 gem "tailwindcss-rails", "~> 3.0"
 
 
@@ -33,7 +34,7 @@ run <<~CMD
     npm install \
       react react-dom \
       turbo-mount stimulus-vite-helpers clsx tailwind-merge \
-      @hotwired/turbo-rails \
+      @hotwired/turbo-rails  \
       @rails/actioncable @rails/activestorage \
       class-variance-authority clsx tailwind-merge lucide-react
 CMD
@@ -42,12 +43,13 @@ run <<~CMD
     npm install -D \
       @vitejs/plugin-react eslint globals eslint-plugin-react-refresh typescript-eslint @eslint/js \
       @types/react @types/react-dom vite-plugin-stimulus-hmr vite-plugin-full-reload \
-      tailwind autoprefixer tailwindcss-animate @types/node \
+      tailwind @tailwindcss/postcss @tailwindcss/vite autoprefixer tailwindcss-animate @types/node \
       @tailwindcss/typography @tailwindcss/container-queries @tailwindcss/forms
 CMD
 
 # Initialize Tailwind configs
-run "npx tailwindcss init -p"
+# run "npx tailwindcss init -p"
+copy_file "#{__dir__}/postcss.config.mjs", "postcss.config.mjs"
 
 # --------------------------------------------------------------------------
 # 2.3.2: Overwrite vite.config.js with your React + Ruby config
@@ -148,6 +150,7 @@ insert_into_file "app/views/layouts/application.html.erb",
 copy_file "#{__dir__}/components.json", "components.json"
 copy_file "#{__dir__}/utils.ts", "app/javascript/lib/utils.ts"
 remove_file "tailwind.config.js"
+copy_file "#{__dir__}/postcss.config.mjs", "postcss.config.mjs"
 copy_file "#{__dir__}/tailwind.config.js", "tailwind.config.js"
 
 # --------------------------------------------------------------------------
