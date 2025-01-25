@@ -1,8 +1,10 @@
 @import "tailwindcss";
+/*
 @plugin "@tailwindcss/forms"
 @plugin "@tailwindcss/typography" 
 @plugin "@tailwindcss/container-queries"
 @plugin "tailwindcss-animate";
+*/
 
 @variant dark (&:where(.dark, .dark *));
 
