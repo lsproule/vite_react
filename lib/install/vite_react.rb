@@ -11,7 +11,15 @@ gem "vite_rails", "~> 3.0"
 gem "turbo-mount", "~> 0.4.1"
 gem "tailwindcss-ruby", "~> 4.0.0.beta.9"
 gem "tailwindcss-rails", "~> 3.0"
-
+gem "opentelemetry-sdk"
+gem "opentelemetry-instrumentation-rails"
+gem "opentelemetry-exporter-otlp"
+gem "yabeda"
+gem "yabeda-gc"
+gem "yabeda-rails"
+gem "yabeda-activerecord"
+gem "yabeda-activejob"
+gem "yabeda-prometheus"
 
 
 
@@ -154,10 +162,15 @@ copy_file "#{__dir__}/utils.ts", "app/javascript/lib/utils.ts"
 remove_file "tailwind.config.js"
 copy_file "#{__dir__}/postcss.config.mjs", "postcss.config.mjs"
 copy_file "#{__dir__}/tailwind.config.js", "tailwind.config.js"
-
 # --------------------------------------------------------------------------
-# 2.8  setup eslint
-# copy_file "#{__dir__}/eslint.config.js", "eslint.config.js"
+# 2.8  setup telemetry
+# --------------------------------------------------------------------------
+template "#{__dir__}/opentelemetry.rb.tt", "config/initializers/opentelemetry.rb"
+insert_into_file "config/routes.rb",
+  before: "  get \"up\" => \"rails/health#show\", as: :rails_health_check\n" do
+     "  mount Yabeda::Prometheus::Exporter, at: \"/metrics\"\n"
+  end
+
 
 # --------------------------------------------------------------------------
 # 2.9: Done!
