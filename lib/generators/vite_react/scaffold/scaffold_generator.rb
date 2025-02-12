@@ -69,12 +69,19 @@ module ViteReact
           ]
         end
 
-        def rails_to_ts_type(rails_type)
-          case rails_type.to_s
-          when "integer", "float", "decimal" then "number"
-          when "boolean"                     then "boolean"
+
+        def rails_to_ts_type(attribute)
+          case attribute.type
+          when :float, :decimal, :integer
+              "number"
+          when :boolean
+              "boolean"
+          when :attachment
+              "{ filename: string; url: string }"
+          when :attachments
+              "{ filename: string; url: string }[]"
           else
-            "string"
+              "string"
           end
         end
         def available_views
