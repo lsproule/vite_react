@@ -71,7 +71,7 @@ module ViteReact
 
 
         def rails_to_ts_type(attribute)
-          case attribute.type
+          case attribute
           when :float, :decimal, :integer
               "number"
           when :boolean
