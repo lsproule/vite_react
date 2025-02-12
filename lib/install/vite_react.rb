@@ -8,7 +8,7 @@ else
 end
 
 gem "vite_rails", "~> 3.0"
-gem "turbo-mount", "~> 0.4.1"
+# gem "turbo-mount", "~> 0.4.1"
 gem "tailwindcss-ruby", "~> 4.0.0.beta.9"
 gem "tailwindcss-rails", "~> 3.0"
 gem "opentelemetry-sdk"
@@ -41,7 +41,7 @@ run "bundle exec vite install"
 run <<~CMD
     npm install \
       react react-dom \
-      turbo-mount stimulus-vite-helpers clsx tailwind-merge \
+      stimulus-vite-helpers clsx tailwind-merge \
       @hotwired/turbo-rails  \
       @rails/actioncable @rails/activestorage \
       class-variance-authority clsx tailwind-merge lucide-react
@@ -93,33 +93,37 @@ copy_file "#{__dir__}/application.css", "app/assets/stylesheets/application.tail
 
 # 2.3.5: Create the main JS entrypoint for Vite
 remove_file "app/javascript/entrypoints/application.js"
-create_file "app/javascript/entrypoints/application.js", <<~JS
-    import "@hotwired/turbo-rails";
-    import "../controllers";
-    import "./turbo-mount";
-    import "./application.css";
-
-    console.log("Hello from application.js");
-JS
+copy_file "#{__dir__}/application.js", "app/javascript/entrypoints/application.js"
+# create_file "app/javascript/entrypoints/application.js", <<~JS
+#    import "@hotwired/turbo-rails";
+#    import "../controllers";
+#    import "./turbo-mount";
+#    import "./application.css";
+#
+#    console.log("Hello from application.js");
+# JS
 
 # --------------------------------------------------------------------------
 # 2.4: turbo-mount installation
 # --------------------------------------------------------------------------
-say "=== Installing turbo-mount ===", :green
-generate "turbo_mount:install --framework=react"
+# say "=== Installing turbo-mount ===", :green
+# generate "turbo_mount:install --framework=react"
 
 # We’ll create a dedicated turbo-mount entry for React components
-remove_file "app/javascript/turbo-mount.js"
-create_file "app/javascript/entrypoints/turbo-mount.js", <<~JS
-    import { TurboMount } from "turbo-mount";
-    import { registerComponent } from "turbo-mount/react";
-
-    // Example React component
-    import { App } from "@/components/App";
-
-    const turboMount = new TurboMount();
-    registerComponent(turboMount, "App", App);
-JS
+# remove_file "app/javascript/turbo-mount.js"
+# create_file "app/javascript/entrypoints/turbo-mount.js", <<~JS
+#    import { TurboMount } from "turbo-mount";
+#    import { registerComponent } from "turbo-mount/react";
+#
+#    // Example React component
+#    import { App } from "@/components/App";
+#
+#    const turboMount = new TurboMount();
+#    registerComponent(turboMount, "App", App);
+# JS
+empty_directory "node"
+copy_file "#{__dir__}/ssr-server.ts", "node/ssr-server.ts"
+copy_file "#{__dir__}/ssr-entry.ts", "node/ssr-entry.ts"
 
 # --------------------------------------------------------------------------
 # 2.5: Example React component + Home controller
