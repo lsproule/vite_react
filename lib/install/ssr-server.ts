@@ -21,10 +21,8 @@ async function startServer() {
   app.post("/render", async (req: Request, res: Response) => {
     try {
       const { component, props } = req.body;
-      // Assume that your SSR entry is at /src/ssr-entry.js.
       const modulePath = "/node/ssr-entry.js";
       const { render } = await vite.ssrLoadModule(modulePath);
-      // render() should handle renderToPipeableStream and pipe to res.
       render(component, props, res);
     } catch (error) {
       vite.ssrFixStacktrace(error);

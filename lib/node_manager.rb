@@ -6,15 +6,15 @@ module ViteReact
         @started = true
 
         node_executable = ViteReact.config.node_path ||
-                          `which node`.strip
+                          `which bun`.strip
         unless node_executable && !node_executable.empty?
           Rails.logger.error("Node executable not found. SSR functionality disabled.")
           return
         end
 
-        server_script = File.expand_path("../../../node/ssr-server.js", __FILE__)
+        server_script = File.expand_path("/node/ssr-server.ts", __FILE__)
         port = ViteReact.config.node_server_port
-        command = "#{node_executable} #{server_script} --port=#{port}"
+        command = "#{node_executable} #{server_script} --expirimental-strip-types --port=#{port}"
         Rails.logger.info("Starting vite_react_ssr Node server with: #{command}")
 
         @pid = Process.spawn(command, out: "/dev/null", err: "/dev/null")

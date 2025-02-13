@@ -7,7 +7,7 @@ type Props<K extends PropertyKey, V = unknown> = [K, V]
 
 export async function render(componentName: string, props: Props<any, any>, res: Response) {
 
-  const module = await import(`./components/${componentName}.jsx`);
+  const module = await import(`@/ssr-components/${componentName}.jsx`);
   const Component = module.default;
 
   const element = React.createElement(Component, props);

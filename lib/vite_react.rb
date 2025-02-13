@@ -7,7 +7,6 @@ module ViteReact
     @config ||= Configuration.new
   end
 
-  # Optionally, yield the configuration in an initializer.
   def self.configure
     yield(config)
   end

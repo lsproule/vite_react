@@ -41,6 +41,7 @@ run "bundle exec vite install"
 run <<~CMD
     npm install \
       react react-dom \
+      express typescript @types/express @types/node ts-node nodemon \
       stimulus-vite-helpers clsx tailwind-merge \
       @hotwired/turbo-rails  \
       @rails/actioncable @rails/activestorage \
