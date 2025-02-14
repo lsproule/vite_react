@@ -94,7 +94,9 @@ copy_file "#{__dir__}/application.css", "app/assets/stylesheets/application.tail
 
 # 2.3.5: Create the main JS entrypoint for Vite
 remove_file "app/javascript/entrypoints/application.js"
-copy_file "#{__dir__}/application.js", "app/javascript/ssr/ssr.ts"
+copy_file "#{__dir__}/application.js", "app/javascript/entrypoints/application.js"
+copy_file "#{__dir__}/ssr.ts", "app/javascript/ssr/ssr.ts"
+copy_file "#{__dir__}/AppSSR.tsx", "app/javascript/ssr-components/App.tsx"
 
 # --------------------------------------------------------------------------
 # 2.4: Example React component + Home controller
