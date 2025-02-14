@@ -24,9 +24,15 @@ module ViteReact
       else
         # CLIENT‑SIDE RENDERING: output a placeholder div with data attributes
         placeholder_id = "react-component-#{SecureRandom.hex(8)}"
-        content_tag(:div, "",
-                    id: placeholder_id,
-                    data: { react_component: name, props: props.to_json })
+        content_tag(
+          :div,
+          "",
+          id: placeholder_id,
+          data: {
+            react_component: name,
+            props: props.to_json
+          }
+        )
       end
     end
 

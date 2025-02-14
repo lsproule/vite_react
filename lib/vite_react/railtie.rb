@@ -37,7 +37,7 @@ module ViteReact
     private
 
     def render_react_component_ssr(name, props)
-      port = ViteReactSSR.config.node_server_port
+      port = ViteReact.config.node_server_port
       uri = URI("http://localhost:#{port}/render")
       http = Net::HTTP.new(uri.host, uri.port)
       req = Net::HTTP::Post.new(uri, "Content-Type" => "application/json")
