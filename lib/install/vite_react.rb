@@ -95,14 +95,7 @@ copy_file "#{__dir__}/application.css", "app/assets/stylesheets/application.tail
 # 2.3.5: Create the main JS entrypoint for Vite
 remove_file "app/javascript/entrypoints/application.js"
 copy_file "#{__dir__}/application.js", "app/javascript/entrypoints/application.js"
-# create_file "app/javascript/entrypoints/application.js", <<~JS
-#    import "@hotwired/turbo-rails";
-#    import "../controllers";
-#    import "./turbo-mount";
-#    import "./application.css";
-#
-#    console.log("Hello from application.js");
-# JS
+
 
 # --------------------------------------------------------------------------
 # 2.4: turbo-mount installation
@@ -110,18 +103,6 @@ copy_file "#{__dir__}/application.js", "app/javascript/entrypoints/application.j
 # say "=== Installing turbo-mount ===", :green
 # generate "turbo_mount:install --framework=react"
 
-# We’ll create a dedicated turbo-mount entry for React components
-# remove_file "app/javascript/turbo-mount.js"
-# create_file "app/javascript/entrypoints/turbo-mount.js", <<~JS
-#    import { TurboMount } from "turbo-mount";
-#    import { registerComponent } from "turbo-mount/react";
-#
-#    // Example React component
-#    import { App } from "@/components/App";
-#
-#    const turboMount = new TurboMount();
-#    registerComponent(turboMount, "App", App);
-# JS
 empty_directory "node"
 copy_file "#{__dir__}/ssr-server.ts", "node/ssr-server.ts"
 copy_file "#{__dir__}/ssr-entry.ts", "node/ssr-entry.ts"
@@ -146,19 +127,6 @@ remove_file "app/views/route/index.html.erb", force: true
 copy_file "#{__dir__}/index.html.erb", "app/views/route/index.html.erb"
 
 # --------------------------------------------------------------------------
-# 2.6: Insert needed tags in application.html.erb
-# --------------------------------------------------------------------------
-insert_into_file "app/views/layouts/application.html.erb",
-  after: "<%= csrf_meta_tags %>\n" do
-    <<~ERB
-      <%= stylesheet_link_tag :app, "data-turbo-track": "reload" %>
-      <%= javascript_importmap_tags %>
-      <%= vite_client_tag %>
-      <%= vite_javascript_tag 'application' %>
-    ERB
-  end
-
-# --------------------------------------------------------------------------
 # 2.7: shadcn initialization
 # --------------------------------------------------------------------------
 # run "npx shadcn@latest init"
@@ -176,7 +144,7 @@ insert_into_file "config/routes.rb",
      "  mount Yabeda::Prometheus::Exporter, at: \"/metrics\"\n"
   end
 
-
+rails_command "assets:precompile"
 # --------------------------------------------------------------------------
 # 2.9: Done!
 # --------------------------------------------------------------------------

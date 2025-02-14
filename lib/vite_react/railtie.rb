@@ -1,5 +1,7 @@
 require "rails"
 require "rails/railtie"
+require_relative "react_helper"
+
 
 
 module ViteReact
