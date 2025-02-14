@@ -94,21 +94,10 @@ copy_file "#{__dir__}/application.css", "app/assets/stylesheets/application.tail
 
 # 2.3.5: Create the main JS entrypoint for Vite
 remove_file "app/javascript/entrypoints/application.js"
-copy_file "#{__dir__}/application.js", "app/javascript/entrypoints/application.js"
-
-
-# --------------------------------------------------------------------------
-# 2.4: turbo-mount installation
-# --------------------------------------------------------------------------
-# say "=== Installing turbo-mount ===", :green
-# generate "turbo_mount:install --framework=react"
-
-empty_directory "node"
-copy_file "#{__dir__}/ssr-server.ts", "node/ssr-server.ts"
-copy_file "#{__dir__}/ssr-entry.ts", "node/ssr-entry.ts"
+copy_file "#{__dir__}/application.js", "app/javascript/ssr/ssr.ts"
 
 # --------------------------------------------------------------------------
-# 2.5: Example React component + Home controller
+# 2.4: Example React component + Home controller
 # --------------------------------------------------------------------------
 
 copy_file "#{__dir__}/App.tsx", "app/javascript/components/App.tsx"
