@@ -1,7 +1,3 @@
-require "rails"
-require "rails/railtie"
-require_relative "react_helper"
-
 require "net/http"
 require "json"
 require "securerandom"
@@ -28,9 +24,15 @@ module ViteReact
       else
         # CLIENT‑SIDE RENDERING: output a placeholder div with data attributes
         placeholder_id = "react-component-#{SecureRandom.hex(8)}"
-        content_tag(:div, "",
-                    id: placeholder_id,
-                    data: { react_component: name, props: props.to_json })
+        content_tag(
+          :div,
+          "",
+          id: placeholder_id,
+          data: {
+            react_component: name,
+            props: props.to_json
+          }
+        )
       end
     end
 
@@ -53,20 +55,6 @@ module ViteReact
     rescue => e
       Rails.logger.error("SSR Exception: #{e.message}")
       "Error rendering component"
-    end
-  end
-end
-
-
-module ViteReact
-  class Railtie < ::Rails::Railtie
-    initializer "vite_react.action_view" do
-      ActiveSupport.on_load(:action_view) do
-        include ViteReact::ReactComponentHelper
-      end
-    end
-    rake_tasks do
-      load "tasks/install.rake"
     end
   end
 end

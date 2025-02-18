@@ -8,7 +8,7 @@ else
 end
 
 gem "vite_rails", "~> 3.0"
-gem "turbo-mount", "~> 0.4.1"
+# gem "turbo-mount", "~> 0.4.1"
 gem "tailwindcss-ruby", "~> 4.0.0.beta.9"
 gem "tailwindcss-rails", "~> 3.0"
 gem "opentelemetry-sdk"
@@ -41,7 +41,8 @@ run "bundle exec vite install"
 run <<~CMD
     npm install \
       react react-dom \
-      turbo-mount stimulus-vite-helpers clsx tailwind-merge \
+      express typescript @types/express @types/node ts-node nodemon \
+      stimulus-vite-helpers clsx tailwind-merge \
       @hotwired/turbo-rails  \
       @rails/actioncable @rails/activestorage \
       class-variance-authority clsx tailwind-merge lucide-react
@@ -93,36 +94,12 @@ copy_file "#{__dir__}/application.css", "app/assets/stylesheets/application.tail
 
 # 2.3.5: Create the main JS entrypoint for Vite
 remove_file "app/javascript/entrypoints/application.js"
-create_file "app/javascript/entrypoints/application.js", <<~JS
-    import "@hotwired/turbo-rails";
-    import "../controllers";
-    import "./turbo-mount";
-    import "./application.css";
-
-    console.log("Hello from application.js");
-JS
+copy_file "#{__dir__}/application.js", "app/javascript/entrypoints/application.js"
+copy_file "#{__dir__}/ssr.ts", "app/javascript/ssr/ssr.ts"
+copy_file "#{__dir__}/AppSSR.tsx", "app/javascript/ssr-components/App.tsx"
 
 # --------------------------------------------------------------------------
-# 2.4: turbo-mount installation
-# --------------------------------------------------------------------------
-say "=== Installing turbo-mount ===", :green
-generate "turbo_mount:install --framework=react"
-
-# We’ll create a dedicated turbo-mount entry for React components
-remove_file "app/javascript/turbo-mount.js"
-create_file "app/javascript/entrypoints/turbo-mount.js", <<~JS
-    import { TurboMount } from "turbo-mount";
-    import { registerComponent } from "turbo-mount/react";
-
-    // Example React component
-    import { App } from "@/components/App";
-
-    const turboMount = new TurboMount();
-    registerComponent(turboMount, "App", App);
-JS
-
-# --------------------------------------------------------------------------
-# 2.5: Example React component + Home controller
+# 2.4: Example React component + Home controller
 # --------------------------------------------------------------------------
 
 copy_file "#{__dir__}/App.tsx", "app/javascript/components/App.tsx"
@@ -139,19 +116,6 @@ route "root to: 'route#index'"
 
 remove_file "app/views/route/index.html.erb", force: true
 copy_file "#{__dir__}/index.html.erb", "app/views/route/index.html.erb"
-
-# --------------------------------------------------------------------------
-# 2.6: Insert needed tags in application.html.erb
-# --------------------------------------------------------------------------
-insert_into_file "app/views/layouts/application.html.erb",
-  after: "<%= csrf_meta_tags %>\n" do
-    <<~ERB
-      <%= stylesheet_link_tag :app, "data-turbo-track": "reload" %>
-      <%= javascript_importmap_tags %>
-      <%= vite_client_tag %>
-      <%= vite_javascript_tag 'application' %>
-    ERB
-  end
 
 # --------------------------------------------------------------------------
 # 2.7: shadcn initialization
@@ -171,7 +135,7 @@ insert_into_file "config/routes.rb",
      "  mount Yabeda::Prometheus::Exporter, at: \"/metrics\"\n"
   end
 
-
+rails_command "assets:precompile"
 # --------------------------------------------------------------------------
 # 2.9: Done!
 # --------------------------------------------------------------------------
