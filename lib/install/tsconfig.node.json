@@ -19,7 +19,7 @@
     "noUncheckedSideEffectImports": true,
     "baseUrl": ".",
     "paths": {
-      "@/*": ["./app/javascript/*"]
+      "@/*": ["app/javascript/*"]
     }
   },
   "include": ["vite.config.ts"]

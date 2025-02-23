@@ -87,7 +87,6 @@ create_file "app/javascript/controllers/index.js", <<~JS
     registerControllers(application, controllers);
 JS
 
-
 copy_file "#{__dir__}/application.css", "app/javascript/entrypoints/application.css"
 remove_file "app/assets/stylesheets/application.tailwind.css"
 copy_file "#{__dir__}/application.css", "app/assets/stylesheets/application.tailwind.css"
