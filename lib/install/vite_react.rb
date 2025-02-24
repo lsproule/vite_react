@@ -95,6 +95,7 @@ Ruby
 # 2.3.5: Create the main JS entrypoint for Vite
 remove_file "app/javascript/entrypoints/application.js"
 copy_file "#{__dir__}/application.jsx", "app/javascript/entrypoints/application.jsx"
+empty_directory "app/javascript/ssr"
 copy_file "#{__dir__}/ssr.ts", "app/javascript/ssr/ssr.ts"
 copy_file "#{__dir__}/AppSSR.tsx", "app/javascript/ssr-components/App.tsx"
 
@@ -126,6 +127,10 @@ copy_file "#{__dir__}/utils.ts", "app/javascript/lib/utils.ts"
 remove_file "tailwind.config.js"
 copy_file "#{__dir__}/postcss.config.mjs", "postcss.config.mjs"
 copy_file "#{__dir__}/tailwind.config.js", "tailwind.config.js"
+remove_file "Procfile.dev"
+copy_file "#{__dir__}/Procfile.dev", "Procfile.dev"
+
+
 # --------------------------------------------------------------------------
 # 2.8  setup telemetry
 # --------------------------------------------------------------------------
