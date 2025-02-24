@@ -140,7 +140,7 @@ insert_into_file "config/routes.rb",
   end
 
 gsub_file "app/views/layouts/application.html.erb",
-  /<%= vite_javascript_tag 'application\.js' %>/,
+  /<%= vite_javascript_tag 'application' %>/,
   "<%= vite_javascript_tag 'application.jsx' %>"
 rails_command "assets:precompile"
 run "bundle exec vite build --ssr"
