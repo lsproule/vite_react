@@ -91,7 +91,6 @@ JS
 copy_file "#{__dir__}/application.css", "app/javascript/entrypoints/application.css"
 remove_file "app/assets/stylesheets/application.tailwind.css"
 copy_file "#{__dir__}/application.css", "app/assets/stylesheets/application.tailwind.css"
-Ruby
 # 2.3.5: Create the main JS entrypoint for Vite
 remove_file "app/javascript/entrypoints/application.js"
 copy_file "#{__dir__}/application.jsx", "app/javascript/entrypoints/application.jsx"
