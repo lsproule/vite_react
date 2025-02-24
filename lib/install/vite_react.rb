@@ -46,7 +46,7 @@ run <<~CMD
       stimulus-vite-helpers clsx tailwind-merge \
       @hotwired/turbo-rails  \
       @rails/actioncable @rails/activestorage \
-      class-variance-authority clsx tailwind-merge lucide-react
+      class-variance-authority clsx tailwind-merge lucide-react html-react-parser
 CMD
 
 run <<~CMD
