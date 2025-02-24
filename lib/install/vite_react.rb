@@ -37,6 +37,7 @@ say "=== Installing Vite, React, Tailwind, shadcn, etc. ===", :green
 # --- Vite ---
 run "bundle exec vite install"
 
+
 # --- Install NPM dependencies ---
 run <<~CMD
     npm install \
@@ -90,10 +91,10 @@ JS
 copy_file "#{__dir__}/application.css", "app/javascript/entrypoints/application.css"
 remove_file "app/assets/stylesheets/application.tailwind.css"
 copy_file "#{__dir__}/application.css", "app/assets/stylesheets/application.tailwind.css"
-
+Ruby
 # 2.3.5: Create the main JS entrypoint for Vite
 remove_file "app/javascript/entrypoints/application.js"
-copy_file "#{__dir__}/application.js", "app/javascript/entrypoints/application.js"
+copy_file "#{__dir__}/application.jsx", "app/javascript/entrypoints/application.jsx"
 copy_file "#{__dir__}/ssr.ts", "app/javascript/ssr/ssr.ts"
 copy_file "#{__dir__}/AppSSR.tsx", "app/javascript/ssr-components/App.tsx"
 
@@ -134,6 +135,9 @@ insert_into_file "config/routes.rb",
      "  mount Yabeda::Prometheus::Exporter, at: \"/metrics\"\n"
   end
 
+gsub_file "app/views/layouts/application.html.erb",
+  /<%= vite_javascript_tag 'application\.js' %>/,
+  "<%= vite_javascript_tag 'application.jsx' %>"
 rails_command "assets:precompile"
 # --------------------------------------------------------------------------
 # 2.9: Done!
