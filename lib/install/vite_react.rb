@@ -51,7 +51,7 @@ CMD
 
 run <<~CMD
     npm install -D \
-      @vitejs/plugin-react eslint globals eslint-plugin-react-refresh typescript-eslint @eslint/js \
+      @vitejs/plugin-react eslint globals eslint-plugin-react-refresh @eslint/js \
       @types/react @types/react-dom vite-plugin-stimulus-hmr vite-plugin-full-reload \
       tailwind @tailwindcss/postcss @tailwindcss/vite autoprefixer tailwindcss-animate @types/node \
       @tailwindcss/typography @tailwindcss/container-queries @tailwindcss/forms
