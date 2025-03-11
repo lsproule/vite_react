@@ -2,6 +2,8 @@ import express, { Request, Response } from 'express';
 import { createServer as createViteServer } from 'vite';
 import React from "react";
 import { renderToPipeableStream } from "react-dom/server";
+import parse from 'html-react-parser';
+
 
 
 const port = process.env.PORT || 4000;
@@ -24,6 +26,7 @@ async function startServer() {
   app.post("/render", async (req: Request, res: Response) => {
     try {
       const { component, props } = req.body;
+      console.log("props", props)
       render(component, props, res);
     } catch (error) {
       vite.ssrFixStacktrace(error as Error);
@@ -35,13 +38,15 @@ async function startServer() {
   app.listen(port, () => console.log(`vite_react_ssr Node server listening on port ${port}`));
 }
 
-type Props<K extends PropertyKey, V = unknown> = [K, V]
 
 
-async function render(componentName: string, props: Props<any, any>, res: Response) {
+async function render(componentName: string, props: any, res: Response) {
 
   const module = await import(`@/ssr-components/${componentName}.tsx`);
   const Component = module.default;
+  if (props?.children) {
+    props.children = parse(props.children);
+  }
 
   const element = React.createElement(Component, props);
 

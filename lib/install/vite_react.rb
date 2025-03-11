@@ -37,6 +37,7 @@ say "=== Installing Vite, React, Tailwind, shadcn, etc. ===", :green
 # --- Vite ---
 run "bundle exec vite install"
 
+
 # --- Install NPM dependencies ---
 run <<~CMD
     npm install \
@@ -45,12 +46,12 @@ run <<~CMD
       stimulus-vite-helpers clsx tailwind-merge \
       @hotwired/turbo-rails  \
       @rails/actioncable @rails/activestorage \
-      class-variance-authority clsx tailwind-merge lucide-react
+      class-variance-authority clsx tailwind-merge lucide-react html-react-parser
 CMD
 
 run <<~CMD
     npm install -D \
-      @vitejs/plugin-react eslint globals eslint-plugin-react-refresh typescript-eslint @eslint/js \
+      @vitejs/plugin-react eslint globals eslint-plugin-react-refresh @eslint/js \
       @types/react @types/react-dom vite-plugin-stimulus-hmr vite-plugin-full-reload \
       tailwind @tailwindcss/postcss @tailwindcss/vite autoprefixer tailwindcss-animate @types/node \
       @tailwindcss/typography @tailwindcss/container-queries @tailwindcss/forms
@@ -87,14 +88,13 @@ create_file "app/javascript/controllers/index.js", <<~JS
     registerControllers(application, controllers);
 JS
 
-
 copy_file "#{__dir__}/application.css", "app/javascript/entrypoints/application.css"
 remove_file "app/assets/stylesheets/application.tailwind.css"
 copy_file "#{__dir__}/application.css", "app/assets/stylesheets/application.tailwind.css"
-
 # 2.3.5: Create the main JS entrypoint for Vite
 remove_file "app/javascript/entrypoints/application.js"
-copy_file "#{__dir__}/application.js", "app/javascript/entrypoints/application.js"
+copy_file "#{__dir__}/application.jsx", "app/javascript/entrypoints/application.jsx"
+empty_directory "app/javascript/ssr"
 copy_file "#{__dir__}/ssr.ts", "app/javascript/ssr/ssr.ts"
 copy_file "#{__dir__}/AppSSR.tsx", "app/javascript/ssr-components/App.tsx"
 
@@ -126,6 +126,10 @@ copy_file "#{__dir__}/utils.ts", "app/javascript/lib/utils.ts"
 remove_file "tailwind.config.js"
 copy_file "#{__dir__}/postcss.config.mjs", "postcss.config.mjs"
 copy_file "#{__dir__}/tailwind.config.js", "tailwind.config.js"
+remove_file "Procfile.dev"
+copy_file "#{__dir__}/Procfile.dev", "Procfile.dev"
+
+
 # --------------------------------------------------------------------------
 # 2.8  setup telemetry
 # --------------------------------------------------------------------------
@@ -135,7 +139,11 @@ insert_into_file "config/routes.rb",
      "  mount Yabeda::Prometheus::Exporter, at: \"/metrics\"\n"
   end
 
+gsub_file "app/views/layouts/application.html.erb",
+  /<%= vite_javascript_tag 'application' %>/,
+  "<%= vite_javascript_tag 'application.jsx' %>"
 rails_command "assets:precompile"
+run "bundle exec vite build --ssr"
 # --------------------------------------------------------------------------
 # 2.9: Done!
 # --------------------------------------------------------------------------

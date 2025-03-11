@@ -22,7 +22,7 @@
 
     "baseUrl": ".",
     "paths": {
-      "@/*": ["./app/javascript/*"]
+      "@/*": ["app/javascript/*"]
     }
   },
   "include": ["app/javascript/**/*"]

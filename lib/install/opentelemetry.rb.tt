@@ -2,8 +2,9 @@ require "opentelemetry/sdk"
 require "opentelemetry/instrumentation/rails"
 require "opentelemetry-exporter-otlp"
 
+
 OpenTelemetry::SDK.configure do |c|
   c.service_name = "<%= Rails.application.class.module_parent_name.underscore.dasherize %>"
   c.use_all()
-end
+end if Rails.env.production?
 

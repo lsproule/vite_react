@@ -1,0 +1,6 @@
+web: bin/rails server -p 3000
+#vite: bin/vite dev
+vite_ssr: PORT=4000 bin/vite ssr -m development
+# vite_build: bin/vite build --watch
+# vite_build_ssr: bin/vite build --ssr --watch
+
