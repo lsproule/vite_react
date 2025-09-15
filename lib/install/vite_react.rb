@@ -11,17 +11,6 @@ gem "vite_rails", "~> 3.0"
 # gem "turbo-mount", "~> 0.4.1"
 gem "tailwindcss-ruby", "~> 4.0.0"
 gem "tailwindcss-rails", "~> 4.0"
-gem "opentelemetry-sdk"
-gem "opentelemetry-instrumentation-rails"
-gem "opentelemetry-exporter-otlp"
-gem "yabeda"
-gem "yabeda-gc"
-gem "yabeda-rails"
-gem "yabeda-activerecord"
-gem "yabeda-activejob"
-gem "yabeda-prometheus"
-
-
 
 rails_command "tailwindcss:install"
 
@@ -36,7 +25,6 @@ say "=== Installing Vite, React, Tailwind, shadcn, etc. ===", :green
 
 # --- Vite ---
 run "bundle exec vite install"
-
 
 # --- Install NPM dependencies ---
 run <<~CMD
@@ -129,24 +117,13 @@ copy_file "#{__dir__}/tailwind.config.js", "tailwind.config.js"
 remove_file "Procfile.dev"
 copy_file "#{__dir__}/Procfile.dev", "Procfile.dev"
 
-
-# --------------------------------------------------------------------------
-# 2.8  setup telemetry
-# --------------------------------------------------------------------------
-template "#{__dir__}/opentelemetry.rb.tt", "config/initializers/opentelemetry.rb"
-insert_into_file "config/routes.rb",
-  before: "  get \"up\" => \"rails/health#show\", as: :rails_health_check\n" do
-     "  mount Yabeda::Prometheus::Exporter, at: \"/metrics\"\n"
-  end
-
 gsub_file "app/views/layouts/application.html.erb",
   /<%= vite_javascript_tag 'application' %>/,
   "<%= vite_javascript_tag 'application.jsx' %>"
 rails_command "assets:precompile"
 run "bundle exec vite build --ssr"
-# --------------------------------------------------------------------------
-# 2.9: Done!
-# --------------------------------------------------------------------------
+
+
 say "=== Setup Complete ===", :green
 say "You can now run: bin/rails server", :yellow
 say "Visit http://localhost:3000 to see the example turbo-mounted React component.", :yellow
