@@ -106,25 +106,35 @@ module ViteReact
 
     private
 
-    def render_react_component_ssr(name, props, filename = nil)
-      port = 4000 # Alternatively, use ViteReact.config.node_server_port || 4000
-      uri = URI("http://localhost:#{port}/render")
-      http = Net::HTTP.new(uri.host, uri.port)
-      req = Net::HTTP::Post.new(uri, "Content-Type" => "application/json")
-      payload = { component: name, props: props }
-      payload[:filename] = filename if filename
-      req.body = payload.to_json
 
-      res = http.request(req)
-      if res.is_a?(Net::HTTPSuccess)
-        res.body.html_safe
-      else
-        Rails.logger.error("SSR Error: #{res.code} #{res.body}")
-        "Error rendering component"
-      end
+
+  def render_react_component_ssr(name, props, filename = nil)
+    port = 4000
+    uri = URI("http://localhost:#{port}/render")
+    http = Net::HTTP.new(uri.host, uri.port)
+    req = Net::HTTP::Post.new(uri, "Content-Type" => "application/json; charset=utf-8")
+
+    payload = { component: name, props: props }
+    payload[:filename] = filename if filename
+    req.body = payload.to_json
+
+    res = http.request(req)
+
+    if res.is_a?(Net::HTTPSuccess)
+      expected_encoding = Encoding.default_internal || Encoding.default_external
+
+      body = res.body
+      body = body.force_encoding(expected_encoding) unless body.encoding == expected_encoding
+
+      body.html_safe
+    else
+      Rails.logger.error("SSR Error: #{res.code} #{res.body}")
+      "Error rendering component"
+    end
     rescue => e
       Rails.logger.error("SSR Exception: #{e.message}")
       "Error rendering component"
     end
   end
 end
+
